@@ -40,13 +40,19 @@ public class orderServiceImpl implements orderService {
 
 
     private product getProductFromRemote(Long productId) {
-        //1.获取商品服务所在的IP地址
-        List<ServiceInstance> instances = discoveryClient.getInstances("service-product");
-        ServiceInstance serviceInstance = instances.get(1);       //
-        //2.构造请求URL
+        // 1. 获取商品服务所在的 IP 地址
+        List<ServiceInstance> instances = discoveryClient.getInstances("product-service");
+        if (instances == null || instances.isEmpty()) {
+            throw new RuntimeException("No instances available for service-product");
+        }
+        // 选择第一个实例
+        ServiceInstance serviceInstance = instances.get(0);
+
+        // 2. 构造请求 URL
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/product/" + productId;
-        //3.发送请求，获取商品信息
-        log.info("请求URL:{}", url);
+
+        // 3. 发送请求，获取商品信息
+        log.info("请求URL: {}", url);
         product product = restTemplate.getForObject(url, product.class);
         return product;
     }
