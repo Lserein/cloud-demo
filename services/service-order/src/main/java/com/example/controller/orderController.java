@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.bean.order;
+import com.example.properties.OrderProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -14,16 +15,16 @@ public class orderController {
     @Autowired
     private orderService orderService;
 
-    @Value("${order.timeout}")
-    String orderTimeouut;
-    @Value("${order.auto-confirm}")
-    String orderConfirm;
+    @Autowired
+    OrderProperties orderProperties;
+
 
     @GetMapping("/config")
     String config(){
-        System.out.println("orderTimeouut:"+orderTimeouut);
-        System.out.println("orderConfirm:"+orderConfirm);
-        return orderTimeouut+" "+orderConfirm;
+        System.out.println("orderTimeouut:"+orderProperties.getTimeout());
+        System.out.println("orderConfirm:"+orderProperties.getAutoconfirm());
+        return orderProperties.getTimeout()+":"+orderProperties.getAutoconfirm()
+                +":"+orderProperties.getDburl();
     }
 
     @GetMapping("/order/create")
