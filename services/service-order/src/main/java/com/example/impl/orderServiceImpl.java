@@ -2,6 +2,7 @@ package com.example.impl;
 
 import com.example.bean.order;
 import com.example.bean.product;
+import com.example.feign.ProductFeignClient;
 import com.example.service.orderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,14 @@ public class orderServiceImpl implements orderService {
     RestTemplate restTemplate;
     @Autowired
     LoadBalancerClient loadBalancerClient;
+    @Autowired
+    ProductFeignClient productFeignClient;
 
     @Override
     public order CreateOrder(Long userId, Long productId) {
         order order = new order();
-        product product = getProductFromRemote2(productId);
+        product product = productFeignClient.getProductById(productId);
+        //product product = getProductFromRemote2(productId);
         order.setId(1L);
         //计算订单总金额
         order.setTotalAmount(product.getPrice().multiply(new BigDecimal("10")));
