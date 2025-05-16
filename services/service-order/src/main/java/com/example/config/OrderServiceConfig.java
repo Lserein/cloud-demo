@@ -1,5 +1,6 @@
 package com.example.config;
 
+import feign.Retryer;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,11 @@ public class OrderServiceConfig {
     @Bean
     Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
+    }
+
+    @Bean
+    Retryer retryer() {
+        return new Retryer.Default(1000, 10000, 3);
     }
 
     //

@@ -1,11 +1,12 @@
 package com.example.feign;
 
 import com.example.bean.product;
+import com.example.feign.fallback.ProductFeignClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value = "product-service")   //Feign客户端，指定服务名称
+@FeignClient(value = "product-service",fallback = ProductFeignClientFallback.class)   //Feign客户端，指定服务名称
 public interface ProductFeignClient {
 
     //MVC注解两套逻辑

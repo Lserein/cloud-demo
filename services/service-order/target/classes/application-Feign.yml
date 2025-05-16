@@ -11,3 +11,6 @@ spring:
             connect-timeout: 5000        #            连接超时时间
             read-timeout: 10000          #            读取超时时间
             logger-level: full          #            日志级别
+feign:
+  sentinel:
+    enabled: true                       #            开启feign对sentinel的支持
