@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          product-service:                 #            只针对product-service服务的配置
+            connect-timeout: 5000        #            连接超时时间
+            read-timeout: 5000          #            读取超时时间
+            logger-level: full          #            日志级别
+          default:                         #            所有其它服务的默认配置
+            connect-timeout: 5000        #            连接超时时间
+            read-timeout: 10000          #            读取超时时间
+            logger-level: full          #            日志级别

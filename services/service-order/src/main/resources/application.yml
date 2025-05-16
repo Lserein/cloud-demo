@@ -4,6 +4,7 @@ sercer:
 spring:
   profiles:
     active: dev
+    include: Feign
   application:
     name: service-order
   cloud:
@@ -13,6 +14,10 @@ spring:
         enabled=false:
       config:
         namespace: ${spring.profiles.active:public}
+
+logging:
+  level:
+    com.example.feign: debug
 
 ---
 spring:
