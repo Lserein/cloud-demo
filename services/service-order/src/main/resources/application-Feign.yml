@@ -11,6 +11,10 @@ spring:
             connect-timeout: 5000        #            连接超时时间
             read-timeout: 10000          #            读取超时时间
             logger-level: full          #            日志级别
+    Sentinel:
+      transport:
+        dashboard: localhost:8080           #            sentinel控制台地址
+      eager: true                         #            启动时就初始化sentinel规则
 feign:
   sentinel:
     enabled: true                       #            开启feign对sentinel的支持

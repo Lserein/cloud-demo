@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.example.bean.order;
 import com.example.properties.OrderProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +35,25 @@ public class orderController {
         order order = orderService.CreateOrder(userId, productId);
         return order;
     }
+
+    //秒杀订单接口
+    @GetMapping("/order/seckill")
+    public order seckill(@RequestParam("userId") Long userId,
+                             @RequestParam("productId") Long productId) {
+        order order = orderService.CreateOrder(userId, productId);
+        order.setId(Long.MAX_VALUE);
+        return order;
+    }
+
+    @GetMapping("writedb")
+    public String writeDb(){
+        return "write db success...";
+    }
+
+    @GetMapping("readdb")
+    public String readDb(){
+        return "read db success...";
+    }
+
+
 }

@@ -1,5 +1,8 @@
 package com.example.impl;
 
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.example.bean.order;
 import com.example.bean.product;
 import com.example.feign.ProductFeignClient;
@@ -30,10 +33,12 @@ public class orderServiceImpl implements orderService {
     ProductFeignClient productFeignClient;
 
     @Override
+    @SentinelResource(value = "createOrder", blockHandler = "CreateOrderBlockHandler")
     public order CreateOrder(Long userId, Long productId) {
         order order = new order();
         product product = productFeignClient.getProductById(productId);
         //product product = getProductFromRemote2(productId);
+
         order.setId(1L);
         //计算订单总金额
         order.setTotalAmount(product.getPrice().multiply(new BigDecimal("10")));
@@ -42,6 +47,17 @@ public class orderServiceImpl implements orderService {
         order.setAddress("beijing");
         //远程查询商品信息，并设置到订单中
         order.setProductList(Arrays.asList(product));
+        return order;
+    }
+
+    public order CreateOrderBlockHandler(Long userId, Long productId, BlockException e) {
+        order order = new order();
+        order.setId(0L);
+        //计算订单总金额
+        order.setTotalAmount(new BigDecimal("0"));
+        order.setUserId(userId);
+        order.setNikeName("未知用户");
+        order.setAddress("异常信息"+e.getMessage());
         return order;
     }
 
