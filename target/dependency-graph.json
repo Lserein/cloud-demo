@@ -1,0 +1,13 @@
+{
+  "graphName" : "cloud-demo",
+  "artifacts" : [ {
+    "id" : "com.example:cloud-demo:pom",
+    "numericId" : 1,
+    "groupId" : "com.example",
+    "artifactId" : "cloud-demo",
+    "version" : "0.0.1-SNAPSHOT",
+    "optional" : false,
+    "scopes" : [ "compile" ],
+    "types" : [ "pom" ]
+  } ]
+}

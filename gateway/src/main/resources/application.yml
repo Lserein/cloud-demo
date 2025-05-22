@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      services: 127.0.0.1:8848
+  config:
+    import: classpath:application-route.yml
+
+server:
+  port: 80

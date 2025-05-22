@@ -1,0 +1,29 @@
+{
+  "graphName" : "model",
+  "artifacts" : [ {
+    "id" : "com.example:model:jar",
+    "numericId" : 1,
+    "groupId" : "com.example",
+    "artifactId" : "model",
+    "version" : "0.0.1-SNAPSHOT",
+    "optional" : false,
+    "scopes" : [ "compile" ],
+    "types" : [ "jar" ]
+  }, {
+    "id" : "org.projectlombok:lombok:jar",
+    "numericId" : 2,
+    "groupId" : "org.projectlombok",
+    "artifactId" : "lombok",
+    "version" : "1.18.34",
+    "optional" : false,
+    "scopes" : [ "provided" ],
+    "types" : [ "jar" ]
+  } ],
+  "dependencies" : [ {
+    "from" : "com.example:model:jar",
+    "to" : "org.projectlombok:lombok:jar",
+    "numericFrom" : 0,
+    "numericTo" : 1,
+    "resolution" : "INCLUDED"
+  } ]
+}
