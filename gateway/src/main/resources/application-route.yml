@@ -1,12 +1,46 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*" #跨域处理 允许所有的域
+            allowedMethods: "*"# 支持的方法
       routes: #      - id: service_a
         - id: order-route
           uri: lb://service-order
           predicates: #            - Path=/service-a/**
             - Path=/api/order/**
+          filters:
+            - RewritePath=/api/order/?(?<segment>.*),/$\{segment}
+            - AddRequestHeader=X-Response-ABC, 123
+            - OnceToken=X-Response-Token, uuid
         - id: product-route
           uri: lb://serivce-product
           predicates: #            - Path=/service-a/**
             - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product/?(?<segment>.*),/$\{segment}
+            - AddRequestHeader=X-Request-Foo, Bar
+            - AddResponseHeader=X-Response-Foo, Bar
+        - id: bingo-route
+          uri: https://www.bing.com
+          predicates:
+            - name: Path
+              args:
+                pattern: /search
+            - name: Query
+              args:
+                param: q
+                regex: haha
+#            - Vip=user,Lsec      短写法
+            - name: Vip
+              args:
+                param: user
+                value: Lsec
+      default-filters:
+        - name: AddRequestHeader
+          args:
+            name: X-Request-Foo
+            value: Bar
+

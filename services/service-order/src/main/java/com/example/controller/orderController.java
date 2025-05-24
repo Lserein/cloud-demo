@@ -10,7 +10,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import com.example.service.orderService;
 
-@RequestMapping("/api/order")
+//@RequestMapping("/api/order")
 @RefreshScope
 @RestController
 public class orderController {
